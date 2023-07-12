@@ -1,0 +1,9 @@
+# idea
+.idea
+cmake-build*
+
+# vcpkg
+vcpkg_installed
+
+# MacOS
+.DS_Store
