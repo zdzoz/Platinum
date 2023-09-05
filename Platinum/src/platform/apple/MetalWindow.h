@@ -24,6 +24,7 @@ namespace Platinum {
         struct WindowData {
             std::string title;
             int width, height;
+            bool resizable;
             EventCallbackFn EventCallback;
         } _data;
 
@@ -36,6 +37,7 @@ namespace Platinum {
         inline int height() override { return _data.height; }
 
         inline void* getNativeWindow() override { return nswin; }
+        void setResizable(bool resizable) override { glfwWindowHint(GLFW_RESIZABLE, resizable); }
 
         void onUpdate() override;
 

@@ -30,7 +30,7 @@ namespace Platinum {
         id<MTLFunction> frag = [lib newFunctionWithName:@"basic_fragment"];
 
         MTLRenderPipelineDescriptor* psd = [[MTLRenderPipelineDescriptor alloc] init];
-        psd.label = @"Simple Pipeline";
+//        psd.label = @"Simple Pipeline";
 
         psd.vertexFunction = vert;
         psd.fragmentFunction = frag;
@@ -51,7 +51,7 @@ namespace Platinum {
             simd_float4 color;
         };
         v2f tri[] = {
-                {{ 25.f,  25.f}, {1.f, 0.f, 0.f, 1.f} },
+                {{ 480.f,  25.f}, {1.f, 0.f, 0.f, 1.f} },
                 {{ 25.f, 455.f}, {0.f, 1.f, 0.f, 1.f} },
                 {{935.f, 455.f}, {0.f, 0.f, 1.f, 1.f} }
         };
@@ -68,11 +68,8 @@ namespace Platinum {
             id<MTLCommandBuffer> buffer = [cmd commandBuffer];
             id<MTLRenderCommandEncoder> enc = [buffer renderCommandEncoderWithDescriptor:rpd];
 
-//            [enc setViewport:(MTLViewport){0.0, 0.0, nswin.frame.size.width, nswin.frame.size.height, 0.0, 1.0 }];
             [enc setRenderPipelineState:pso];
             [enc setVertexBytes:tri length:sizeof(tri) atIndex:0];
-            simd_float2 winSize = {static_cast<float>(_window->width()), static_cast<float>(_window->height())};
-            [enc setVertexBytes:&winSize length:sizeof(winSize) atIndex:1];
             [enc drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:3];
 
             [enc endEncoding];

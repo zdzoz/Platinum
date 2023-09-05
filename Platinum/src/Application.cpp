@@ -6,16 +6,9 @@
 
 #include "Event.h"
 #include "WindowEvent.h"
+#include "KeyEvent.h"
 
 namespace Platinum {
-
-    Application::Application() : _window(std::shared_ptr<Window>(Window::create())), _renderer(std::unique_ptr<Renderer>(Renderer::create(_window))) {
-        _window->setEventCallback([this](auto&& e) { onEvent(std::forward<decltype(e)>(e)); });
-    }
-
-    Application::Application(WindowProps props) : _window(std::shared_ptr<Window>(Window::create(props))), _renderer(std::unique_ptr<Renderer>(Renderer::create(_window))) {
-        _window->setEventCallback([this](auto&& e) { onEvent(std::forward<decltype(e)>(e)); });
-    }
 
     Application::~Application() = default;
 
@@ -26,10 +19,26 @@ namespace Platinum {
             return true;
         });
 
-//        std::cout << e << std::endl;
+//        dispatcher.dispatch<KeyDownEvent>([] (auto& e) {
+//            std::cout << e.toString()  << std::endl;
+//            return true;
+//        });
+//
+//        dispatcher.dispatch<KeyUpEvent>([] (auto& e) {
+//            std::cout << e.toString()  << std::endl;
+//            return true;
+//        });
+//
+//        dispatcher.dispatch<KeyRepeatEvent>([] (auto& e) {
+//            std::cout << e.toString()  << std::endl;
+//            return true;
+//        });
     }
 
-    void Application::loop() {
+    void Application::run() {
+        _window = std::shared_ptr<Window>(Window::create(appInfo));
+        _renderer = std::unique_ptr<Renderer>(Renderer::create(_window));
+        _window->setEventCallback([this](auto&& e) { onEvent(std::forward<decltype(e)>(e)); });
         while (_running) {
             // handle client code on new thread?
             _renderer->draw();

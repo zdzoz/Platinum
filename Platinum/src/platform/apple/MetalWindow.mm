@@ -7,6 +7,7 @@
 #include "Event.h"
 #include "WindowEvent.h"
 #include "MouseEvents.h"
+#include "KeyEvent.h"
 
 namespace Platinum {
 
@@ -17,9 +18,10 @@ namespace Platinum {
     }
 
     MetalWindow::MetalWindow(const WindowProps& props) {
-        _data.title = props.title == nullptr ? "Platinum - Metal" : props.title;
+        _data.title = props.title;
         _data.width = props.width;
         _data.height = props.height;
+        _data.resizable = props.resizable;
         if (!GLFWInitialized) {
             if (!glfwInit()) {
                 std::cerr << "Failed to Initialise Window\n";
@@ -28,6 +30,7 @@ namespace Platinum {
             GLFWInitialized = true;
         }
 
+        glfwWindowHint(GLFW_RESIZABLE, props.resizable);
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API); // prevent using OpenGL
         win = glfwCreateWindow(_data.width, _data.height, _data.title.c_str(), nullptr, nullptr);
         if (win == nullptr) {
@@ -80,8 +83,23 @@ namespace Platinum {
             }
         });
 
-        glfwSetKeyCallback(win, [](GLFWwindow* _win, int key, int code, int action, int mods) {
-            std::cout << " " << key << " " << code << " " << action << " " << mods << std::endl;
+        glfwSetKeyCallback(win, [](GLFWwindow* _win, int key, int code, int action, int mod) {
+            auto data = (WindowData*)glfwGetWindowUserPointer(_win);
+
+            switch (action) {
+                case KeyAction::Up: {
+                    KeyUpEvent e(key, code, mod);
+                    data->EventCallback(e);
+                } break;
+                case KeyAction::Down: {
+                    KeyDownEvent e(key, code, mod);
+                    data->EventCallback(e);
+                } break;
+                case KeyAction::Repeat:
+                default:
+                    KeyRepeatEvent e(key, code, mod);
+                    data->EventCallback(e);
+            }
         });
     }
 

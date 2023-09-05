@@ -7,15 +7,44 @@
 #include "Event.h"
 
 namespace Platinum {
+    struct KeyAction {
+        enum {
+            Up, Down, Repeat
+        };
+    };
     class KeyDownEvent : public Event {
-
+        Key key, native_key, modifier;
     public:
-        KeyDownEvent() : {}
+        KeyDownEvent(Key key, Key native_key, Key modifier) : key(key), native_key(native_key), modifier(modifier) {}
 
         EVENT_TYPE(KeyDown);
 
-        std::string toString() override {
-            std::cout << ""
+        std::string toString() const override {
+            return fmt::format("[KeyDown] Key: {}, NativeKey: {}, Modifier: {}", key, native_key, modifier);
+        }
+    };
+
+    class KeyUpEvent : public Event {
+        Key key, native_key, modifier;
+    public:
+        KeyUpEvent(Key key, Key native_key, Key modifier) : key(key), native_key(native_key), modifier(modifier) {}
+
+        EVENT_TYPE(KeyUp);
+
+        std::string toString() const override {
+            return fmt::format("[KeyUp] Key: {}, NativeKey: {}, Modifier: {}", key, native_key, modifier);
+        }
+    };
+
+    class KeyRepeatEvent : public Event {
+        Key key, native_key, modifier;
+    public:
+        KeyRepeatEvent(Key key, Key native_key, Key modifier) : key(key), native_key(native_key), modifier(modifier) {}
+
+        EVENT_TYPE(KeyRepeat);
+
+        std::string toString() const override {
+            return fmt::format("[KeyRepeat] Key: {}, NativeKey: {}, Modifier: {}", key, native_key, modifier);
         }
     };
 }

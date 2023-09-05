@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <Object.h>
 #include <Window.h>
 
 #ifdef LIB_PATH
@@ -19,13 +18,10 @@ namespace Platinum {
     class Renderer {
 //        friend Window;
     protected:
-        std::vector<std::shared_ptr<Object>> _drawQueue{};
         std::shared_ptr<Window> _window;
     public:
         virtual ~Renderer() = default;
         static Renderer* create(const std::shared_ptr<Window>& win);
-
-        void registerObject(const Object& obj) { _drawQueue.push_back(std::make_shared<Object>(obj)); }
 
         virtual void draw() = 0;
     };

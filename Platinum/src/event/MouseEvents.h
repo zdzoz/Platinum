@@ -6,19 +6,6 @@
 
 #include "Event.h"
 
-// Mouse Macros
-#define PLAT_MB_1         0
-#define PLAT_MB_2         1
-#define PLAT_MB_3         2
-#define PLAT_MB_4         3
-#define PLAT_MB_5         4
-#define PLAT_MB_6         5
-#define PLAT_MB_7         6
-#define PLAT_MB_8         7
-#define PLAT_MB_LEFT      PLAT_MB_1
-#define PLAT_MB_RIGHT     PLAT_MB_2
-#define PLAT_MB_MIDDLE    PLAT_MB_3
-
 namespace Platinum {
     enum MB {
         MB_NONE = -1,

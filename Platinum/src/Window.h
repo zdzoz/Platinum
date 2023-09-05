@@ -6,10 +6,11 @@
 
 namespace Platinum {
     class Event;
-    using EventCallbackFn = std::function<void(Event&)> ;
+    using EventCallbackFn = std::function<void(Event&)>;
     struct WindowProps {
-        const char* title{};
-        int width = 960, height = 480;
+        const char* title{"Platinum App"};
+        int width{800}, height{600};
+        bool resizable{true};
     };
 
     class Window {
@@ -18,13 +19,14 @@ namespace Platinum {
         virtual ~Window() = default;
 
         // Implement in platform specific window class
-        static Window* create(const WindowProps& props = WindowProps());
+        static Window* create(const WindowProps& props = {});
 
         virtual inline const std::string& title() = 0;
         virtual inline int width() = 0;
         virtual inline int height() = 0;
 
         virtual void* getNativeWindow() = 0;
+        virtual void setResizable(bool resizable) = 0;
 
         virtual void onUpdate() = 0;
 

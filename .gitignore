@@ -7,3 +7,8 @@ vcpkg_installed
 
 # MacOS
 .DS_Store
+
+#general
+.cache
+build
+compile_commands.json

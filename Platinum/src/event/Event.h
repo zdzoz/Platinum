@@ -5,21 +5,22 @@
 #pragma once
 
 namespace Platinum {
-    enum class Key {
-        none = -1,
-        shift = 0x0001,
-        ctrl = 0x0002,
-        alt = 0x0004,
-        super = 0x0008,
-        caps_lock = 0x0010,
-        num_lock = 0x0020,
-    };
+    using Key = uint64_t;
+//    enum class Key {
+//        none = -1,
+//        shift = 0x0001,
+//        ctrl = 0x0002,
+//        alt = 0x0004,
+//        super = 0x0008,
+//        caps_lock = 0x0010,
+//        num_lock = 0x0020,
+//    };
 
     enum class EventType {
         None = 0,
         WindowClose, WindowResize,
         MousePos, MouseDown, MouseUp,
-        KeyDown, KeyUp
+        KeyDown, KeyUp, KeyRepeat
     };
 
 #define EVENT_TYPE(type) inline EventType getType() const override {  \

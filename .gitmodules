@@ -1,3 +1,0 @@
-[submodule "Platinum/dependencies/vcpkg"]
-	path = Platinum/dependencies/vcpkg
-	url = https://github.com/Microsoft/vcpkg.git

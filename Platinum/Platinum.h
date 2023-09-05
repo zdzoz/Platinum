@@ -5,7 +5,5 @@
 #pragma once
 
 #include "Application.h"
-#include "Entry.h"
 #include "Renderer.h"
 #include "Window.h"
-#include "Object.h"

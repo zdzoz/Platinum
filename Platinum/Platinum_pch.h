@@ -1,7 +1,3 @@
-//
-// Created by Oskar Zdziarski on 7/10/23.
-//
-
 #pragma once
 
 #include <functional>
@@ -12,3 +8,4 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <fmt/core.h>
